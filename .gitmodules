@@ -25,3 +25,6 @@
 [submodule "Cool/Renderer_Fullscreen"]
 	path = Cool/Renderer_Fullscreen
 	url = https://github.com/CoolOpenGL/Renderer_Fullscreen
+[submodule "Cool/String"]
+	path = Cool/String
+	url = https://github.com/CoolOpenGL/String

@@ -19,6 +19,7 @@ public:
 private:
 	GameOfLife m_gameOfLife;
 	float m_updateSpeed = 30.f;
+	int m_frameCount = 0;
 
 private:
 #ifndef NDEBUG

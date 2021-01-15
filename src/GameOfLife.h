@@ -16,6 +16,7 @@ public:
 	void render();
 	void renderToConsole();
 	void ImGui();
+	inline Renderer_Fullscreen& renderer() { return m_renderer; }
 
 private:
 	unsigned int m_width;
@@ -30,4 +31,5 @@ private:
 	float m_cellRoundness = 1.972f;
 	float m_cellThreshold = 0.367;
 	float m_cellBlur = 0.367f;
+	int m_cellGen = 3;
 };

@@ -20,7 +20,7 @@ void GameOfLife::restart() {
 	v.reserve(N);
 	for (size_t i = 0; i < N; ++i) {
 		//v.push_back(Random::get0to1() < 0.5 ? 0 : 1);
-		v.push_back(i % 3 == 1 ? 1 : 0);
+		v.push_back(i % m_cellGen == 1 ? 1 : 0);
 	}
 	m_ssbo0.uploadData(v);
 	m_ssbo1.uploadData(v);
@@ -70,4 +70,5 @@ void GameOfLife::ImGui() {
 	ImGui::SliderFloat("Cell Roundness", &m_cellRoundness, 0.f, 10.f);
 	ImGui::SliderFloat("Cell Threshold", &m_cellThreshold, 0.f, 10.f);
 	ImGui::SliderFloat("Cell Blur", &m_cellBlur, 0.f, 1.f);
+	ImGui::InputInt("Cell Gen", &m_cellGen);
 }

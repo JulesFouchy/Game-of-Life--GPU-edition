@@ -1,11 +1,15 @@
 #include "GameOfLife.h"
 
 #include <Cool/Random/Random.h>
-
+#include <Cool/App/RenderState.h>
 #include <iostream>
 
 GameOfLife::GameOfLife(unsigned int width, unsigned int height)
-	: m_width(width), m_height(height), m_ssbo0(0), m_ssbo1(1), m_computeShader("shaders/GameOfLife.comp")
+	: m_width(width), m_height(height), m_ssbo0(0), m_ssbo1(1), m_computeShader("shaders/simulation.comp"),
+	  m_shader({
+		ShaderCode(ShaderType::Vertex, "Cool/Renderer_Fullscreen/fullscreen.vert"),
+		ShaderCode(ShaderType::Fragment, "shaders/rendering.frag")
+	  })
 {
 	std::vector<int> v;
 	size_t N = width * height;
@@ -25,6 +29,18 @@ void GameOfLife::update() {
 	m_computeShader.compute(m_width, m_height);
 }
 
+void GameOfLife::render() {
+	m_renderer.begin();
+	{
+		m_shader.bind();
+		m_shader.setUniform2f("u_resolution", { m_width, m_height });
+		m_shader.setUniform1i("u_resolutionX", m_width);
+		m_shader.setUniform1i("u_bFlipFlop", m_bFlipFlop);
+		m_renderer.render();
+	}
+	m_renderer.end(GL_NEAREST);
+}
+
 void GameOfLife::renderToConsole() {
 	std::cout << "----------------------------------------------" << std::endl;
 	std::vector<int> v;
@@ -40,8 +56,4 @@ void GameOfLife::renderToConsole() {
 		}
 		std::cout << std::endl;
 	}
-}
-
-void GameOfLife::render() {
-
 }

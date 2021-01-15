@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Cool/App/IApp.h>
-#include <Cool/Renderer_Fullscreen/Renderer_Fullscreen.h>
 
 #include "GameOfLife.h"
 
@@ -18,8 +17,8 @@ public:
 	void onEvent(const SDL_Event & e) override;
 
 private:
-	Renderer_Fullscreen m_renderer;
 	GameOfLife m_gameOfLife;
+	float m_updateSpeed = 1.f;
 
 private:
 #ifndef NDEBUG

@@ -4,18 +4,21 @@
 #include <Cool/App/Input.h>
 
 App::App()
-	: m_gameOfLife(3, 3)
+	: m_gameOfLife(5000, 5000)
 {
-	m_gameOfLife.renderToConsole();
-	m_gameOfLife.update();
-	m_gameOfLife.renderToConsole();
-	m_gameOfLife.update();
-	m_gameOfLife.renderToConsole();
-	m_gameOfLife.update();
-	m_gameOfLife.renderToConsole();
+	RenderState::setPreviewAspectRatio(1.f);
+	RenderState::setPreviewAspectRatioControl(true);
 }
 
 void App::update() {
+	m_gameOfLife.render();
+	static auto timeOfLastUpdate = std::chrono::steady_clock::now();
+	auto now = std::chrono::steady_clock::now();
+	std::chrono::duration<float> elapsedTime = now - timeOfLastUpdate;
+	if (elapsedTime.count() > 1.f / m_updateSpeed) {
+		m_gameOfLife.update();
+		timeOfLastUpdate = now;
+	}
 }
 
 void App::ImGuiWindows() {
@@ -29,6 +32,9 @@ void App::ImGuiWindows() {
 	if (m_bShow_ImGuiDemo) // Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
 		ImGui::ShowDemoWindow(&m_bShow_ImGuiDemo);
 #endif
+	ImGui::Begin("Game of Life");
+	ImGui::SliderFloat("Simulation Speed", &m_updateSpeed, 0.f, 60.f);
+	ImGui::End();
 }
 
 void App::ImGuiMenus() {

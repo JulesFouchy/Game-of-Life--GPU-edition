@@ -2,6 +2,7 @@
 
 #include <Cool/OpenGL/SSBO.h>
 #include <Cool/OpenGL/ComputeShader.h>
+#include <Cool/Renderer_Fullscreen/Renderer_Fullscreen.h>
 
 using namespace Cool;
 
@@ -21,4 +22,7 @@ private:
 	SSBO<int> m_ssbo1;
 	ComputeShader<16, 16, 1> m_computeShader;
 	bool m_bFlipFlop = false;
+
+	Renderer_Fullscreen m_renderer;
+	Shader m_shader;
 };

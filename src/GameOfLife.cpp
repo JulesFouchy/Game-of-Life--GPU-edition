@@ -11,8 +11,12 @@ GameOfLife::GameOfLife(unsigned int width, unsigned int height)
 		ShaderCode(ShaderType::Fragment, "shaders/rendering.frag")
 	  })
 {
+	restart();
+}
+
+void GameOfLife::restart() {
 	std::vector<int> v;
-	size_t N = width * height;
+	size_t N = m_width * m_height;
 	v.reserve(N);
 	for (size_t i = 0; i < N; ++i) {
 		//v.push_back(Random::get0to1() < 0.5 ? 0 : 1);
@@ -35,7 +39,11 @@ void GameOfLife::render() {
 		m_shader.bind();
 		m_shader.setUniform2f("u_resolution", { m_width, m_height });
 		m_shader.setUniform1i("u_resolutionX", m_width);
+		m_shader.setUniform1i("u_resolutionY", m_height);
 		m_shader.setUniform1i("u_bFlipFlop", m_bFlipFlop);
+		m_shader.setUniform1f("u_cellRoundness", m_cellRoundness);
+		m_shader.setUniform1f("u_cellThreshold", m_cellThreshold);
+		m_shader.setUniform1f("u_cellBlur", m_cellBlur);
 		m_renderer.render();
 	}
 	m_renderer.end(GL_NEAREST);
@@ -56,4 +64,10 @@ void GameOfLife::renderToConsole() {
 		}
 		std::cout << std::endl;
 	}
+}
+
+void GameOfLife::ImGui() {
+	ImGui::SliderFloat("Cell Roundness", &m_cellRoundness, 0.f, 10.f);
+	ImGui::SliderFloat("Cell Threshold", &m_cellThreshold, 0.f, 10.f);
+	ImGui::SliderFloat("Cell Blur", &m_cellBlur, 0.f, 1.f);
 }

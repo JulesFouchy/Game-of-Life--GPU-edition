@@ -11,9 +11,11 @@ public:
 	GameOfLife(unsigned int width, unsigned int height);
 	~GameOfLife() = default;
 
+	void restart();
 	void update();
 	void render();
 	void renderToConsole();
+	void ImGui();
 
 private:
 	unsigned int m_width;
@@ -25,4 +27,7 @@ private:
 
 	Renderer_Fullscreen m_renderer;
 	Shader m_shader;
+	float m_cellRoundness = 1.972f;
+	float m_cellThreshold = 0.367;
+	float m_cellBlur = 0.367f;
 };

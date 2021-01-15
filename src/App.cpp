@@ -4,7 +4,7 @@
 #include <Cool/App/Input.h>
 
 App::App()
-	: m_gameOfLife(5000, 5000)
+	: m_gameOfLife(200, 200)
 {
 	RenderState::setPreviewAspectRatio(1.f);
 	RenderState::setPreviewAspectRatioControl(true);
@@ -34,6 +34,9 @@ void App::ImGuiWindows() {
 #endif
 	ImGui::Begin("Game of Life");
 	ImGui::SliderFloat("Simulation Speed", &m_updateSpeed, 0.f, 60.f);
+	m_gameOfLife.ImGui();
+	if (ImGui::Button("Restart"))
+		m_gameOfLife.restart();
 	ImGui::End();
 }
 

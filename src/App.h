@@ -18,7 +18,7 @@ public:
 
 private:
 	GameOfLife m_gameOfLife;
-	float m_updateSpeed = 1.f;
+	float m_updateSpeed = 30.f;
 
 private:
 #ifndef NDEBUG

@@ -4,7 +4,15 @@
 #include <Cool/App/Input.h>
 
 App::App()
+	: m_gameOfLife(3, 3)
 {
+	m_gameOfLife.renderToConsole();
+	m_gameOfLife.update();
+	m_gameOfLife.renderToConsole();
+	m_gameOfLife.update();
+	m_gameOfLife.renderToConsole();
+	m_gameOfLife.update();
+	m_gameOfLife.renderToConsole();
 }
 
 void App::update() {
